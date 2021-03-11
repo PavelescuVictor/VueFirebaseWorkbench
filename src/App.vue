@@ -5,6 +5,25 @@
   </div>
   <router-view />
 </template>
+<script>
+import firebase from "firebase";
+export default {
+  name: "app",
+  created(){
+    firebase.auth().useDeviceLanguage();
+
+    firebase.auth().signInAnonymously()
+    .then(() => {
+        console.log("Logged In")
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(`Error code: ${errorCode} /n Error Message: ${errorMessage}`);
+    });
+  },
+}
+</script>
 
 <style lang="less">
 #app {
